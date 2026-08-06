@@ -12,18 +12,26 @@
 <body>
 
     <h1>Books Market</h1>
-    {% if books %}
-        {% for book in books %}
-            <div class="book-cart">
-                <h2>{{book.title}}</h2>
-                <p><strong>Author:</strong>{{book.author}}</p>
-                <p><strong>Category:</strong>{{book.category.name}}</p>
-                <p class="price">Price: {{book.price}} TL</p>
-            </div>
-        {% endfor %}    
-    {% else %}
+
+    <!-- search form -->
+    <form method="GET" action="">
+        <input type="text", name="q", placeholder="Book name or author name...", value="{{arama_kelimesi}}">
+    <button type="submit">Search</button>
+        {% if arama_kelimesi %}
+            <button type="submit"><a href="{% url 'book-list-web' %}">Clear</a></button>
+        {% endif %}
+    </form>
+
+    <hr>    
+    {% for book in books %}
+        <div class="book-cart">
+            <h2>{{book.title}}</h2>
+            <p><strong>Author:</strong>{{book.author}}</p>
+            <p><strong>Category:</strong>{{book.category.name}}</p>
+            <p class="price">Price: {{book.price}} TL</p>
+        </div>
+    {% empty %}        
         <p>There is no a book in the database</p>
-    {% endif %}
-    
+    {% endfor %}       
 </body>
 </html>
