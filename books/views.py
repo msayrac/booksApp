@@ -11,7 +11,6 @@ def book_list_web(request):
     q = request.GET.get('q')
     if q:
         # baslıkta veya yazar kısmında aranan kelimeler filtreler
-
         books_list = books_list.filter(title__icontains=q) | books_list.filter(author__icontains=q)
 
     paginator = Paginator(books_list, 2)
