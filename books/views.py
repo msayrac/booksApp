@@ -1,25 +1,29 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
-# Create your views here.
 from .models import Book
 
 def book_list_web(request):
-    books = Book.objects.all()
+    books_list = Book.objects.all().order_by('-id')
 
     # aram kutuusndan gelen kelimeyi alıyor
 
     q = request.GET.get('q')
-
     if q:
         # baslıkta veya yazar kısmında aranan kelimeler filtreler
 
-        books = books.filter(title__icontains=q) | books.filter(author__icontains=q) 
+        books_list = books_list.filter(title__icontains=q) | books_list.filter(author__icontains=q)
 
-    context ={
-        'books':books,
-        'arama_kelimesi':q or ''
-    }
+    paginator = Paginator(books_list, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'books/book_list.html',context)
+
+    # context ={
+    #     'books':books,
+    #     'arama_kelimesi':q or ''
+    # }
+
+    return render(request, 'books/book_list.html',{'books':page_obj, 'arama_kelimesi':q or ''})
 
 

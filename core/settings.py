@@ -118,3 +118,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+REST_FRAMEWORK = {
+    # 1. Varsayılan Sayfalama Sınıfı
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    
+    # 2. Her sayfada kaç veri gösterileceği (Şimdilik test etmek için 2 yapalım)
+    'PAGE_SIZE': 2,
+    
+    # 1. Günden kalan filtreleme ayarları...
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
+
+
+
+
+
+
+
+

@@ -32,6 +32,23 @@
         </div>
     {% empty %}        
         <p>There is no a book in the database</p>
-    {% endfor %}       
+    {% endfor %}
+    
+    <!-- Pagination buttons -->
+    <!-- SAYFALAMA BUTONLARI -->
+    <div style="margin-top: 20px;">
+        {% if books.has_previous %}
+            <a href="?page=1{% if arama_kelimesi %}&q={{ arama_kelimesi }}{% endif %}">&laquo; İlk</a>
+            <a href="?page={{ books.previous_page_number }}{% if arama_kelimesi %}&q={{ arama_kelimesi }}{% endif %}">Önceki</a>
+        {% endif %}
+
+        <span>Sayfa {{ books.number }} / {{ books.paginator.num_pages }}</span>
+
+        {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}{% if arama_kelimesi %}&q={{ arama_kelimesi }}{% endif %}">Sonraki</a>
+            <a href="?page={{ books.paginator.num_pages }}{% if arama_kelimesi %}&q={{ arama_kelimesi }}{% endif %}">Son &raquo;</a>
+        {% endif %}
+    </div>
+
 </body>
 </html>
