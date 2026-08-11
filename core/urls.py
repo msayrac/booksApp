@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/',include('books.urls')),
     path('api/',include('books.api.urls')),
+    path('reviews/', include('reviews.urls')),
+    path('api/',include('reviews.api.urls')),
+
 ]
