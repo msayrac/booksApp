@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'reviews',
+    'accounts',
     'rest_framework',
     'django_filters',
 ]
@@ -121,6 +122,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 REST_FRAMEWORK = {
+    # Varsayılan Authentication Sınıfı
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
     # 1. Varsayılan Sayfalama Sınıfı
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     
@@ -133,6 +139,16 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),      # Access token 1 gün geçerli
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh token 7 gün geçerli
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),                 # İsteklerde "Bearer <token>" formatı kullanılacak
+}
 
 
 
